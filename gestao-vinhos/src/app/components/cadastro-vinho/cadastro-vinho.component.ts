@@ -59,7 +59,7 @@ export class CadastroVinhoComponent implements OnInit {
     .then(response => {
       let notificacao: Notificacao = new Notificacao();
       notificacao.mensagem = 'Vinho cadastrado com sucesso';
-      notificacao.tipo = 'sucess';
+      notificacao.tipo = 'success';
       this.notificacaoService.adicionar(notificacao);
       
       this.router.navigate(['/vinhos']);
@@ -74,7 +74,7 @@ export class CadastroVinhoComponent implements OnInit {
     .then(response => {
       let notificacao: Notificacao = new Notificacao();
       notificacao.mensagem = 'Vinho atualizado com sucesso';
-      notificacao.tipo = 'sucess';
+      notificacao.tipo = 'success';
       this.notificacaoService.adicionar(notificacao);
       this.router.navigate(['/vinhos']);
     })
