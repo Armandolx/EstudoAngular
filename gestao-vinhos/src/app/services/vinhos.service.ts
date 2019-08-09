@@ -46,6 +46,20 @@ export class VinhosService {
     .catch(this.tratarErro);
   }
 
+  atualizar(id: number, vinho: Vinho): Promise<Response>{
+    return this.httpClient.put(`api/vinhos/${id}`, vinho)
+    .toPromise()
+    .then(response => response)
+    .catch(this.tratarErro);
+  }
+
+  remover(id: number): Promise<Response> {
+    return this.httpClient.delete(`api/vinhos/${id}`)
+    .toPromise()
+    .then(response => response)
+    .catch(this.tratarErro);
+  }
+
   //private header(): HttpHeaders {
    // return new HttpHeaders({ 'Content-Type': 'application/json' });
   //}

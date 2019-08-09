@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Vinho } from 'src/app/models/vinho';
 import { VinhosService } from 'src/app/services/vinhos.service';
+import { Notificacao } from '../../models/notificacao';
+import { NotificacaoService } from '../../services/notificacao.service';
 
 @Component({
   selector: 'cadastro-vinho',
@@ -14,14 +16,30 @@ export class CadastroVinhoComponent implements OnInit {
   vinho: Vinho;
   uvas: Array<string>;
   classificacoes: Array<string>;
+  titulo: string;
 
-  constructor(private router: Router, private vinhoService: VinhosService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private vinhoService: VinhosService, private notificacaoService: NotificacaoService) { }
 
   ngOnInit() {
     this.vinho = new Vinho();
     this.uvas = ['Merlot', 'Cabernet Sauvignon', 'Carmenere'];
     this.classificacoes = ['Tinto', 'Branco', 'Verde'];
+    this.titulo = 'Cadastro de Vinho';
 
+    this.activatedRoute.params.forEach((params: Params) => {
+      let id = +params['id'];
+      if(id){
+        this.titulo = 'Edição de Vinhos'
+        this.carregarVinho(id);
+      }
+    })
+  }
+
+  private carregarVinho(id: number) {
+    this.vinhoService.buscar(id)
+    .then(vinho => {
+      this.vinho = vinho;
+    }).catch(erro => console.log(erro));
   }
 
   voltar(): void{
@@ -29,16 +47,40 @@ export class CadastroVinhoComponent implements OnInit {
   }
 
   salvar(){
+    if(this.vinho.id) {
+      this.atualizar();
+    } else {
+      this.cadastrarNovo();
+    }
+  }
+
+  private cadastrarNovo(){
     this.vinhoService.cadastrar(this.vinho)
     .then(response => {
-      console.log(JSON.stringify(response));
-      alert("Vinho cadastrado com sucesso");
+      let notificacao: Notificacao = new Notificacao();
+      notificacao.mensagem = 'Vinho cadastrado com sucesso';
+      notificacao.tipo = 'sucess';
+      this.notificacaoService.adicionar(notificacao);
+      
       this.router.navigate(['/vinhos']);
     })
     .catch(erro => {
       console.log(erro);
     });
+  }
 
+  private atualizar(){
+    this.vinhoService.atualizar(this.vinho.id, this.vinho)
+    .then(response => {
+      let notificacao: Notificacao = new Notificacao();
+      notificacao.mensagem = 'Vinho atualizado com sucesso';
+      notificacao.tipo = 'sucess';
+      this.notificacaoService.adicionar(notificacao);
+      this.router.navigate(['/vinhos']);
+    })
+    .catch(erro => {
+      console.log(erro);
+    });
   }
 
 }
