@@ -39,6 +39,13 @@ export class VinhosService {
     return vinho;
   }
 
+  buscar(id: number): Promise<Vinho>{
+    return this.httpClient.get(`api/vinhos/${id}`)
+    .toPromise()
+    .then(response => response as Vinho)
+    .catch(this.tratarErro);
+  }
+
   //private header(): HttpHeaders {
    // return new HttpHeaders({ 'Content-Type': 'application/json' });
   //}
