@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Vinho } from 'src/app/models/vinho';
 import { VinhosService } from 'src/app/services/vinhos.service';
-import { Notificacao } from '../../models/notificacao';
 import { NotificacaoService } from '../../services/notificacao.service';
 
 @Component({
@@ -57,10 +56,7 @@ export class CadastroVinhoComponent implements OnInit {
   private cadastrarNovo(){
     this.vinhoService.cadastrar(this.vinho)
     .then(response => {
-      let notificacao: Notificacao = new Notificacao();
-      notificacao.mensagem = 'Vinho cadastrado com sucesso';
-      notificacao.tipo = 'success';
-      this.notificacaoService.adicionar(notificacao);
+      this.notificacaoService.sucesso('Vinho cadastrado com sucesso');
       
       this.router.navigate(['/vinhos']);
     })
@@ -72,10 +68,7 @@ export class CadastroVinhoComponent implements OnInit {
   private atualizar(){
     this.vinhoService.atualizar(this.vinho.id, this.vinho)
     .then(response => {
-      let notificacao: Notificacao = new Notificacao();
-      notificacao.mensagem = 'Vinho atualizado com sucesso';
-      notificacao.tipo = 'success';
-      this.notificacaoService.adicionar(notificacao);
+      this.notificacaoService.sucesso('Vinho atualizado com sucesso');
       this.router.navigate(['/vinhos']);
     })
     .catch(erro => {

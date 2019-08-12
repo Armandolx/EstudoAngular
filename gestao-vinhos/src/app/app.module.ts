@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
@@ -15,6 +16,7 @@ import { VinhoApi } from './vinho-api';
 import { CadastroVinhoComponent } from './components/cadastro-vinho/cadastro-vinho.component';
 import { DetalheVinhoComponent } from './components/detalhe-vinho/detalhe-vinho.component';
 import { NotificacaoComponent } from './components/notificacao/notificacao.component';
+import { FiltroTabelaPipe } from './pipes/filtro-tabela.pipe';
 
 @NgModule({
   declarations: [
@@ -22,11 +24,13 @@ import { NotificacaoComponent } from './components/notificacao/notificacao.compo
     VinhosComponent,
     CadastroVinhoComponent,
     DetalheVinhoComponent,
-    NotificacaoComponent
+    NotificacaoComponent,
+    FiltroTabelaPipe
   ],
   imports: [
     FormsModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     HttpClientModule,
     InMemoryWebApiModule.forRoot(VinhoApi),

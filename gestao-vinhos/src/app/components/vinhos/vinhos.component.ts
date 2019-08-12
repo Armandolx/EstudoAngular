@@ -16,8 +16,10 @@ export class VinhosComponent implements OnInit {
 
   vinhos: Array<Vinho>;
   vinhoSelecionado: Vinho;
+  campoBusca:string;
+  
   constructor(public notificacaoService: NotificacaoService, public router: Router, public vinhosService: VinhosService){
-
+  
   }
 
   ngOnInit() {
@@ -49,9 +51,8 @@ export class VinhosComponent implements OnInit {
     this.vinhosService.remover(this.vinhoSelecionado.id)
     .then(response => {
       let notificacao: Notificacao = new Notificacao();
-      notificacao.mensagem = 'Vinho removido com sucesso';
-      notificacao.tipo = 'warning';
-      this.notificacaoService.adicionar(notificacao);
+      this.notificacaoService.alerta('Vinho removido com sucesso');
+      
     }).catch(erro => console.log(erro));
     this.listar();
     this.vinhoSelecionado=null;
