@@ -32,7 +32,7 @@ export class DetalheVinhoComponent implements OnInit {
     .catch(erro => console.log(erro));
   }
 
-  private retornar(event: Event){
+  private voltar(){
     this.router.navigate(['/vinhos']);
   }
 
