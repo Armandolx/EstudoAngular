@@ -19,6 +19,7 @@ import { NotificacaoComponent } from './components/notificacao/notificacao.compo
 import { FiltroTabelaPipe } from './pipes/filtro-tabela.pipe';
 import { DestacarEstiloDirective } from './diretivas/destacar-estilo.directive';
 import { PageContainerComponent } from './components/page-container/page-container.component';
+import { VinhoContainerComponent } from './components/vinho-container/vinho-container.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PageContainerComponent } from './components/page-container/page-contain
     NotificacaoComponent,
     FiltroTabelaPipe,
     DestacarEstiloDirective,
-    PageContainerComponent
+    PageContainerComponent,
+    VinhoContainerComponent
   ],
   imports: [
     FormsModule,
